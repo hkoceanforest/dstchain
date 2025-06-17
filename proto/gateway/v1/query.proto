@@ -1,0 +1,37 @@
+syntax = "proto3";
+package freemasonry.gateway.v1;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos_proto/cosmos.proto";
+import "gateway/v1/gateway.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/gateway/types";
+
+service Query {
+  
+  rpc Params(QueryGatewayParams) returns (QueryGatewayParamsResponse) {
+    option (google.api.http).get = "/gateway/params";
+  }
+
+  rpc GatewayNumberUnbondCount(QueryGatewayNumberUnbondCountParams) returns (QueryGatewayNumberUnbondCountResponse) {
+    option (google.api.http).get = "/gateway/gateway_unbond_number_count";
+  }
+}
+
+message QueryGatewayParams {}
+
+message QueryGatewayParamsResponse {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+
+
+message QueryGatewayNumberUnbondCountParams {
+  string gatewayAddress = 1 [(gogoproto.moretags) = "yaml:\"gateway_address\""];
+  string amount = 2 [(gogoproto.moretags) = "yaml:\"amount\""];
+}
+
+message QueryGatewayNumberUnbondCountResponse {
+  int64 count = 1  [(gogoproto.moretags) = "yaml:\"count\""];
+}

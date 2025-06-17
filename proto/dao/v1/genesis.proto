@@ -1,0 +1,159 @@
+syntax = "proto3";
+package freemasonry.dao.v1;
+
+import "google/api/annotations.proto";
+import "gogoproto/gogo.proto";
+import "dao/v1/params.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/dao/types";
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+
+message GenesisState {
+  
+  Params params = 1 [ (gogoproto.nullable) = false ];
+  
+  repeated DeviceClusterExport clusters = 2 [ (gogoproto.nullable) = false ];
+  
+  repeated PersonalClusterInfoExport personal_clusters = 3 [ (gogoproto.nullable) = false ];
+  
+  repeated ClusterChatId2ClusterId cluster_chat_id_reflection = 4 [ (gogoproto.nullable) = false ];
+  
+  string gateway_cluster = 5;
+  
+  repeated ClusterStrategyAddress cluster_strategy_address = 6 [ (gogoproto.nullable) = false ];
+  
+  repeated ClusterCreateTimeExport cluster_create_time = 7 [ (gogoproto.nullable) = false];
+}
+
+
+message DeviceClusterExport {
+  string ClusterId = 1;
+  string ClusterChatId = 2;
+  string ClusterName = 3;
+  string ClusterOwner = 4;
+  string ClusterGateway = 5;
+  string ClusterLeader = 6;
+  map<string, ClusterDeviceMemberExport> ClusterDeviceMembers = 7 [(gogoproto.nullable)   = false];
+  map<string, ClusterPowerMemberExport> ClusterPowerMembers = 8 [(gogoproto.nullable)   = false];
+  string ClusterPower = 9 [
+    (gogoproto.moretags)   = "yaml:\"cluster_power\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  int64 ClusterLevel = 10;
+  string ClusterBurnAmount = 11 [
+    (gogoproto.moretags)   = "yaml:\"cluster_burn_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  int64 ClusterActiveDevice = 12;
+  string ClusterDaoPool = 13;
+  string ClusterRouteRewardPool = 14;
+  string ClusterDeviceRatio = 15 [
+    (gogoproto.moretags)   = "yaml:\"cluster_device_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  int64 ClusterDeviceRatioUpdateHeight = 16;
+  string ClusterSalaryRatio = 17 [
+    (gogoproto.moretags)   = "yaml:\"cluster_salary_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  ClusterChangeRatioHeightExport ClusterSalaryRatioUpdateHeight = 18[(gogoproto.nullable)   = false];
+  string ClusterDvmRatio = 19 [
+    (gogoproto.moretags)   = "yaml:\"cluster_dvm_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string ClusterDaoRatio = 20 [
+    (gogoproto.moretags)   = "yaml:\"cluster_dao_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string OnlineRatio = 21[
+    (gogoproto.moretags)   = "yaml:\"online_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  int64 OnlineRatioUpdateTime = 22;
+  string ClusterAdminList = 23; 
+  uint64 ClusterVoteId = 24;
+  string ClusterVotePolicy = 25;
+}
+
+message ClusterDeviceMemberExport {
+  string Address = 1;
+  string ActivePower = 2[
+    (gogoproto.moretags)   = "yaml:\"active_power\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+message ClusterPowerMemberExport {
+  string Address = 1;
+  string ActivePower = 2[
+    (gogoproto.moretags)   = "yaml:\"active_power\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string BurnAmount = 3[
+    (gogoproto.moretags)   = "yaml:\"burn_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string PowerCanReceiveDao = 4[
+    (gogoproto.moretags)   = "yaml:\"power_can_receive_dao\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+message ClusterChangeRatioHeightExport {
+  int64 SalaryRatioUpdateHeight = 1;
+  int64 DvmRatioUpdateHeight = 2;
+  int64 DaoRatioUpdateHeight = 3;
+}
+
+message PersonalClusterInfoExport {
+  string Address = 1;
+  string Device = 2;
+  string Owner = 3;
+  string BePower = 4;
+  string AllBurn = 5 [
+    (gogoproto.moretags)   = "yaml:\"all_burn\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string ActivePower = 6 [
+    (gogoproto.moretags)   = "yaml:\"active_power\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string FreezePower = 7 [
+    (gogoproto.moretags)   = "yaml:\"freeze_power\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string FirstPowerCluster = 8;
+}
+
+message ClusterChatId2ClusterId {
+  string ClusterChatId = 1;
+  string ClusterId = 2;
+}
+
+
+message ClusterStrategyAddress {
+  string ClusterId = 1;
+  string StrategyAddress = 2;
+}
+
+
+message ClusterCreateTimeExport {
+  string ClusterId = 1;
+  int64 CreateTime = 2;
+}

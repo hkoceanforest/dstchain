@@ -1,0 +1,16 @@
+syntax = "proto3";
+package freemasonry.contract.v1;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/contract/types";
+
+message Params {
+  option (gogoproto.equal)            = true;
+  option (gogoproto.marshaler) = true;
+  option (gogoproto.unmarshaler) = true;
+  option (gogoproto.sizer) = true;
+
+  
+
+}

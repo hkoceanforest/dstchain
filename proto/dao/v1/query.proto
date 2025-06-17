@@ -1,0 +1,46 @@
+syntax = "proto3";
+package freemasonry.dao.v1;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos_proto/cosmos.proto";
+import "dao/v1/params.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/dao/types";
+
+service Query {
+  
+  rpc Params(QueryParams) returns (QueryDaoParamsResponse) {
+    option (google.api.http).get = "/dao/params";
+  }
+
+  rpc ClusterRelationship(QueryClusterRelationshipParams) returns (ClusterRelationshipResponse) {
+    option (google.api.http).get = "/dao/cluster/relationship";
+  }
+
+}
+
+message QueryClusterRelationshipParams {
+  string address = 1;
+  string cluster_id = 2;
+  string signature = 3;
+}
+
+message ClusterRelationship{
+  string cluster_id = 1;
+  string cluster_owner = 2;
+  string cluster_name = 3;
+}
+
+message ClusterRelationshipResponse {
+  repeated ClusterRelationship cluster_relationship = 1;
+}
+
+
+message QueryParams {
+
+}
+
+message QueryDaoParamsResponse {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

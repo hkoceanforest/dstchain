@@ -1,0 +1,32 @@
+syntax = "proto3";
+package freemasonry.contract.v1;
+import "gogoproto/gogo.proto";
+import "cosmos/msg/v1/msg.proto";
+option go_package = "freemasonry.cc/blockchain/x/contract/types";
+
+service Msg {
+  rpc AppTokenIssue(MsgAppTokenIssue) returns (MsgEmptyResponse);
+  rpc RegisterErc20(MsgRegisterErc20) returns (MsgEmptyResponse);
+}
+
+message MsgRegisterErc20{
+  option (cosmos.msg.v1.signer) = "address";
+  option (gogoproto.equal)           = false;
+  option (gogoproto.goproto_getters) = false;
+  string address = 1  [(gogoproto.moretags) = "yaml:\"address\""];
+  string contract_address = 2 [(gogoproto.moretags) = "yaml:\"contract_address\""];
+  string denom = 3 [(gogoproto.moretags) = "yaml:\"denom\""];
+  int32 owner = 4 [(gogoproto.moretags) = "yaml:\"owner\""];
+
+}
+
+message MsgAppTokenIssue {
+  string                    from_address = 1  [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string                    name = 2 [(gogoproto.moretags) = "yaml:\"name\""];
+  string                    symbol = 3 [(gogoproto.moretags) = "yaml:\"symbol\""];
+  string                    pre_mint_amount = 4 [(gogoproto.moretags) = "yaml:\"pre_mint_amount\""];
+  string                    decimals = 5 [(gogoproto.moretags) = "yaml:\"decimals\""];
+  string                    logo_url = 6 [(gogoproto.moretags) = "yaml:\"logo_url\""];
+}
+
+message MsgEmptyResponse {}

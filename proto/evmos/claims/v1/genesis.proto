@@ -1,0 +1,34 @@
+syntax = "proto3";
+package evmos.claims.v1;
+
+import "evmos/claims/v1/claims.proto";
+import "gogoproto/gogo.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/evmos/evmos/v10/x/claims/types";
+
+message GenesisState {
+  
+  Params params = 1 [(gogoproto.nullable) = false];
+  
+  repeated ClaimsRecordAddress claims_records = 2 [(gogoproto.nullable) = false];
+}
+
+message Params {
+  
+  bool enable_claims = 1;
+  
+  google.protobuf.Timestamp airdrop_start_time = 2 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+  
+  google.protobuf.Duration duration_until_decay = 3 [(gogoproto.nullable) = false, (gogoproto.stdduration) = true];
+  
+  google.protobuf.Duration duration_of_decay = 4 [(gogoproto.nullable) = false, (gogoproto.stdduration) = true];
+  
+  string claims_denom = 5;
+  
+  
+  repeated string authorized_channels = 6;
+  
+  repeated string evm_channels = 7 [(gogoproto.customname) = "EVMChannels"];
+}

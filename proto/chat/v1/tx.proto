@@ -1,0 +1,40 @@
+syntax = "proto3";
+package freemasonry.chat.v1;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/chat/types";
+
+service Msg {
+  rpc MobileTransfer(MsgMobileTransfer) returns (MsgEmptyResponse);
+  rpc BurnGetMobile(MsgBurnGetMobile) returns (MsgEmptyResponse);
+  rpc SetChatInfo(MsgSetChatInfo) returns (MsgEmptyResponse);
+}
+
+message MsgMobileTransfer {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string to_address = 2 [(gogoproto.moretags) = "yaml:\"to_address\""];
+  string mobile = 3 [(gogoproto.moretags) = "yaml:\"mobile\""];
+}
+
+message MsgBurnGetMobile {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string mobile_prefix = 2 [(gogoproto.moretags) = "yaml:\"mobile_prefix\""];
+  string gateway_address = 3 [(gogoproto.moretags) = "yaml:\"gateway_address\""];
+  string chat_address = 4 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+}
+
+message MsgSetChatInfo {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];             
+  string gateway_address = 2 [(gogoproto.moretags) = "yaml:\"gateway_address\""];             
+  string address_book = 3  [(gogoproto.moretags) = "yaml:\"address_book\""]; 
+  string chat_blacklist = 4  [(gogoproto.moretags) = "yaml:\"chat_blacklist\""];       
+  string chat_whitelist = 5  [(gogoproto.moretags) = "yaml:\"chat_whitelist\""];       
+  int64 update_time = 6 [(gogoproto.moretags) = "yaml:\"update_time\""];                         
+  string chat_blacklist_enc = 7 [(gogoproto.moretags) = "yaml:\"chat_blacklist_enc\""];       
+  string chat_whitelist_enc = 8 [(gogoproto.moretags) = "yaml:\"chat_whitelist_enc\""];       
+}
+
+
+message MsgEmptyResponse {}
+

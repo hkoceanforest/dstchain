@@ -1,0 +1,49 @@
+syntax = "proto3";
+package evmos.claims.v1;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/evmos/evmos/v10/x/claims/types";
+
+enum Action {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  
+  ACTION_UNSPECIFIED = 0 [(gogoproto.enumvalue_customname) = "ActionUnspecified"];
+  
+  ACTION_VOTE = 1 [(gogoproto.enumvalue_customname) = "ActionVote"];
+  
+  ACTION_DELEGATE = 2 [(gogoproto.enumvalue_customname) = "ActionDelegate"];
+  
+  ACTION_EVM = 3 [(gogoproto.enumvalue_customname) = "ActionEVM"];
+  
+  ACTION_IBC_TRANSFER = 4 [(gogoproto.enumvalue_customname) = "ActionIBCTransfer"];
+}
+
+message Claim {
+  
+  Action action = 1;
+  
+  bool completed = 2;
+  
+  string claimable_amount = 3
+      [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+}
+
+message ClaimsRecordAddress {
+  
+  string address = 1;
+  
+  string initial_claimable_amount = 2
+      [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  
+  repeated bool actions_completed = 3;
+}
+
+message ClaimsRecord {
+  
+  string initial_claimable_amount = 1
+      [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  
+  repeated bool actions_completed = 2;
+}

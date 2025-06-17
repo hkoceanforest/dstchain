@@ -1,0 +1,25 @@
+syntax = "proto3";
+package freemasonry.gateway.v1;
+
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/gateway/types";
+
+message Params {
+  option (gogoproto.equal)            = true;
+  option (gogoproto.marshaler) = true;
+  option (gogoproto.unmarshaler) = true;
+  option (gogoproto.sizer) = true;
+
+  
+  int64 index_num_height = 1;
+  
+  int64 redeem_fee_height = 2;
+  
+  string redeem_fee = 3 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable)   = false];
+  
+  cosmos.base.v1beta1.Coin min_delegate = 4 [ (gogoproto.nullable) = false ];
+  
+  int64 validity = 5;
+}

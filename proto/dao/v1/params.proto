@@ -1,0 +1,208 @@
+syntax = "proto3";
+package freemasonry.dao.v1;
+
+option go_package = "freemasonry.cc/blockchain/x/dao/types";
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+import "gogoproto/gogo.proto";
+import "cosmos_proto/cosmos.proto";
+import "google/protobuf/duration.proto";
+
+message Params {
+  
+  string rate = 1
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+  
+  RatioLimit salary_reward_ratio = 2 [
+    (gogoproto.moretags)   = "yaml:\"salary_reward_ratio\"",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  RatioLimit dvm_reward_ratio = 3 [
+    (gogoproto.moretags)   = "yaml:\"dvm_reward_ratio\"",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string burn_get_power_ratio = 4 [
+    (gogoproto.moretags)   = "yaml:\"burn_get_power_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  repeated ClusterLevel cluster_levels = 5 [
+    (gogoproto.moretags)   = "yaml:\"cluster_levels\"",
+    (gogoproto.nullable) = false
+  ];
+
+  
+  int64 max_cluster_members = 6  [(gogoproto.moretags) = "yaml:\"max_cluster_members\""];
+
+  
+  string dao_reward_percent                = 8 [
+    (gogoproto.moretags)   = "yaml:\"dao_reward_percent\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string dpos_reward_percent                = 9 [
+    (gogoproto.moretags)   = "yaml:\"dpos_reward_percent\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string burn_current_gate_ratio                = 10 [
+    (gogoproto.moretags)   = "yaml:\"burn_current_gate_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string burn_register_gate_ratio                = 11 [
+    (gogoproto.moretags)   = "yaml:\"burn_register_gate_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string day_mint_amount                = 12 [
+    (gogoproto.moretags)   = "yaml:\"day_mint_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  repeated BurnLevel burnLevels = 13 [ (gogoproto.nullable) = false ];
+
+  
+  string power_gas_ratio = 14 [
+    (gogoproto.moretags)   = "yaml:\"power_gas_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string ad_price = 15
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+  
+  string ad_rate = 16
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+  
+  string burn_reward_fee_rate = 17
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+  
+  string receive_dao_ratio = 18
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+  
+  string connectivity_dao_ratio = 19
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+  
+  string burn_dao_pool = 20
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+  
+  RatioLimit dao_reward_ratio = 21 [
+    (gogoproto.moretags)   = "yaml:\"dao_reward_ratio\"",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string max_online_ratio = 22 [
+    (gogoproto.moretags)   = "yaml:\"max_dao_reward_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  
+  google.protobuf.Duration voting_period = 23 [(gogoproto.nullable) = false, (gogoproto.stdduration) = true];
+
+  
+  int64 mint_block_interval = 24 [(gogoproto.moretags) = "yaml:\"mint_block_interval\""];
+
+  
+  CrossFee cross_fee = 25 [
+    (gogoproto.moretags)   = "yaml:\"cross_fee\"",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string translate_min = 27
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+  
+  string dao_increase_ratio = 28
+  [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+  
+  int64 dao_increase_height = 29 [(gogoproto.moretags) = "yaml:\"dao_increase_height\""];
+
+  
+  int64 ido_min_member = 30 [(gogoproto.moretags) = "yaml:\"ido_min_member\""];
+}
+
+message BurnLevel {
+  int64 level = 1 [(gogoproto.moretags) = "yaml:\"level\""];
+  string burn_amount = 2 [
+    (gogoproto.moretags)   = "yaml:\"burn_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string add_percent = 3 [
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
+    (gogoproto.moretags)   = "yaml:\"add_percent\"",
+    (gogoproto.nullable)   = false
+  ];
+  string room_amount = 4 [
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
+    (gogoproto.moretags)   = "yaml:\"room_amount\"",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+message ClusterLevel {
+  int64 level = 1 [(gogoproto.moretags) = "yaml:\"level\""];
+  string burn_amount = 2 [
+    (cosmos_proto.scalar)  = "cosmos.Int",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
+    (gogoproto.nullable)   = false
+  ];
+
+  string dao_limit = 3 [
+    (cosmos_proto.scalar)  = "cosmos.Int",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
+    (gogoproto.nullable)   = false
+  ];
+
+  int64 member_amount = 4  [(gogoproto.moretags) = "yaml:\"member_amount\""];
+}
+
+message RatioLimit {
+  string max_ratio = 1 [
+    (gogoproto.moretags)   = "yaml:\"max_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string min_ratio = 2 [
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.moretags)   = "yaml:\"min_ratio\"",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+message CrossFee {
+  string fee_collection_account = 1 [(gogoproto.moretags) = "yaml:\"fee_collection_account\""];
+  string fee_amount = 2 [
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
+    (gogoproto.moretags)   = "yaml:\"fee_amount\"",
+    (gogoproto.nullable)   = false
+  ];
+}

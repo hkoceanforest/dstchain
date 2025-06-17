@@ -1,0 +1,14 @@
+// Since: cosmos-sdk 0.46
+syntax = "proto3";
+
+package cosmos.group.v1;
+
+option go_package = "github.com/cosmos/cosmos-sdk/x/group";
+
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+// Params defines the parameters for the group module.
+message Params {
+  repeated cosmos.base.v1beta1.Coin deposit = 1 [(gogoproto.nullable) = false];
+}

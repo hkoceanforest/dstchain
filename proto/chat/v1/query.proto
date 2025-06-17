@@ -1,0 +1,24 @@
+syntax = "proto3";
+package freemasonry.chat.v1;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos_proto/cosmos.proto";
+import "chat/v1/genesis.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/chat/types";
+
+service Query {
+  
+  rpc Params(QueryChatParams) returns (QueryChatParamsResponse) {
+    option (google.api.http).get = "/chat/params";
+  }
+}
+
+message QueryChatParams {
+
+}
+
+message QueryChatParamsResponse {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

@@ -1,0 +1,70 @@
+syntax = "proto3";
+package evmos.claims.v1;
+
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "evmos/claims/v1/claims.proto";
+import "evmos/claims/v1/genesis.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/evmos/evmos/v10/x/claims/types";
+
+service Query {
+  
+  rpc TotalUnclaimed(QueryTotalUnclaimedRequest) returns (QueryTotalUnclaimedResponse) {
+    option (google.api.http).get = "/evmos/claims/v1/total_unclaimed";
+  }
+  
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/evmos/claims/v1/params";
+  }
+  
+  rpc ClaimsRecords(QueryClaimsRecordsRequest) returns (QueryClaimsRecordsResponse) {
+    option (google.api.http).get = "/evmos/claims/v1/claims_records";
+  }
+  
+  rpc ClaimsRecord(QueryClaimsRecordRequest) returns (QueryClaimsRecordResponse) {
+    option (google.api.http).get = "/evmos/claims/v1/claims_records/{address}";
+  }
+}
+
+message QueryTotalUnclaimedRequest {}
+
+message QueryTotalUnclaimedResponse {
+  
+  repeated cosmos.base.v1beta1.Coin coins = 1
+      [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (gogoproto.nullable) = false];
+}
+
+message QueryParamsRequest {}
+
+message QueryParamsResponse {
+  
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryClaimsRecordsRequest {
+  
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryClaimsRecordsResponse {
+  
+  repeated ClaimsRecordAddress claims = 1 [(gogoproto.nullable) = false];
+  
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryClaimsRecordRequest {
+  
+  string address = 1;
+}
+
+message QueryClaimsRecordResponse {
+  
+  string initial_claimable_amount = 1
+      [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  
+  repeated Claim claims = 2 [(gogoproto.nullable) = false];
+}

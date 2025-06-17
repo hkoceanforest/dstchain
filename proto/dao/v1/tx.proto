@@ -1,0 +1,417 @@
+syntax = "proto3";
+package freemasonry.dao.v1;
+import "gogoproto/gogo.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/dao/types";
+
+service Msg {
+  rpc ColonyRate(MsgColonyRate) returns (MsgEmptyResponse);                               
+  rpc CreateCluster(MsgCreateCluster) returns (MsgEmptyResponse);                         
+  rpc ClusterAddMembers(MsgClusterAddMembers) returns (MsgEmptyResponse);                 
+  rpc ClusterDeleteMembers(MsgDeleteMembers) returns (MsgEmptyResponse);                  
+  rpc ClusterChangeName(MsgClusterChangeName) returns (MsgEmptyResponse);                 
+  rpc ClusterMemberExit(MsgClusterMemberExit) returns (MsgEmptyResponse);                 
+  rpc BurnToPower(MsgBurnToPower) returns (MsgEmptyResponse);                             
+  
+  rpc ClusterChangeSalaryRatio(MsgClusterChangeSalaryRatio) returns (MsgEmptyResponse);   
+  rpc ClusterChangeDvmRatio(MsgClusterChangeDvmRatio) returns (MsgEmptyResponse);         
+  rpc ClusterChangeDaoRatio(MsgClusterChangeDaoRatio) returns (MsgEmptyResponse);         
+  rpc ClusterChangeId(MsgClusterChangeId) returns (MsgEmptyResponse);                     
+  rpc WithdrawSwapDpos(MsgWithdrawSwapDpos) returns (MsgEmptyResponse);                   
+  rpc WithdrawOwnerReward(MsgWithdrawOwnerReward) returns (MsgEmptyResponse);             
+  rpc WithdrawDeviceReward(MsgWithdrawDeviceReward) returns (MsgEmptyResponse);           
+  rpc ThawFrozenPower(MsgThawFrozenPower) returns (MsgEmptyResponse);                     
+  rpc UpdateAdmin(MsgUpdateAdmin) returns (MsgEmptyResponse);                             
+  rpc ClusterPowerApprove(MsgClusterPowerApprove) returns (MsgEmptyResponse);             
+  rpc PersonDvmApprove(MsgPersonDvmApprove) returns (MsgEmptyResponse);                   
+  rpc ClusterAd(MsgClusterAd) returns (MsgEmptyResponse);                                 
+  rpc AgreeJoinCluster(MsgAgreeJoinCluster) returns (MsgEmptyResponse);                   
+  rpc RedPacket(MsgRedPacket) returns (MsgRedPacketResponse);                             
+  rpc OpenRedPacket(MsgOpenRedPacket) returns (MsgEmptyResponse);                         
+  rpc ReturnRedPacket(MsgReturnRedPacket) returns (MsgEmptyResponse);                     
+  rpc CreateClusterAddMembers(MsgCreateClusterAddMembers) returns (MsgEmptyResponse);     
+  rpc AgreeJoinClusterApply(MsgAgreeJoinClusterApply) returns (MsgEmptyResponse);         
+  rpc StartPowerRewardRedeem(MsgStartPowerRewardRedeem) returns (MsgEmptyResponse);       
+  rpc ReceivePowerCutReward(MsgReceivePowerCutReward) returns (MsgEmptyResponse);         
+}
+
+message MsgReceivePowerCutReward {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+}
+
+message MsgStartPowerRewardRedeem {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""]; 
+}
+
+
+message MsgAgreeJoinClusterApply {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""]; 
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];  
+  string sign = 3 [(gogoproto.moretags) = "yaml:\"sign\""]; 
+  string index_num = 4 [(gogoproto.moretags) = "yaml:\"index_num\""]; 
+  string chat_address = 5 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+  string member_address = 6 [(gogoproto.moretags) = "yaml:\"member_address\""]; 
+  int64 member_online_amount = 7 [(gogoproto.moretags) = "yaml:\"member_online_amount\""];
+  string gateway_address = 8 [(gogoproto.moretags) = "yaml:\"gateway_address\""];
+  string gateway_sign = 9 [(gogoproto.moretags) = "yaml:\"gateway_sign\""];
+}
+
+
+message MsgCreateClusterAddMembers {
+  option (cosmos.msg.v1.signer) = "from_address";
+
+  
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string gate_address = 2 [(gogoproto.moretags) = "yaml:\"gate_address\""];
+  string cluster_id = 3 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string salary_ratio = 4 [
+    (gogoproto.moretags)   = "yaml:\"salary_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string burn_amount = 5 [  
+    (gogoproto.moretags)   = "yaml:\"burn_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string chat_address = 6 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+  
+  string cluster_name = 7 [(gogoproto.moretags) = "yaml:\"cluster_name\""];
+  
+  string freeze_amount = 8 [  
+    (gogoproto.moretags)   = "yaml:\"freeze_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  
+  string metadata = 9 [(gogoproto.moretags) = "yaml:\"metadata\""];
+
+  string cluster_dao_ratio = 10 [
+    (gogoproto.moretags)   = "yaml:\"cluster_dao_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  
+  repeated Members members = 11 [(gogoproto.moretags) = "yaml:\"members\"" ,(gogoproto.nullable) = false];
+
+  int64 member_online_amount = 12 [(gogoproto.moretags) = "yaml:\"member_online_amount\""];
+  
+  string owner_index_num = 13 [(gogoproto.moretags) = "yaml:\"owner_index_num\""];
+
+  
+  string gateway_sign = 14 [(gogoproto.moretags) = "yaml:\"gateway_sign\""];
+}
+
+
+
+
+message MsgReturnRedPacket {
+  
+  string fromaddress = 1 [(gogoproto.moretags) = "yaml:\"fromaddress\""];
+  
+  string redpacketid = 2 [(gogoproto.moretags) = "yaml:\"redpacketid\""];
+}
+
+
+message MsgOpenRedPacket {
+  
+  string fromaddress = 1 [(gogoproto.moretags) = "yaml:\"fromaddress\""];
+  
+  string redpacketid = 2 [(gogoproto.moretags) = "yaml:\"redpacketid\""];
+}
+
+
+message MsgRedPacketResponse {
+  string clusterid = 2 [(gogoproto.moretags) = "yaml:\"clusterid\""];
+}
+
+
+message MsgRedPacket {
+  string fromaddress = 1 [(gogoproto.moretags) = "yaml:\"fromaddress\""];
+  string clusterid = 2 [(gogoproto.moretags) = "yaml:\"clusterid\""];
+  cosmos.base.v1beta1.Coin amount = 3 [
+    (gogoproto.moretags)   = "yaml:\"amount\"",
+    (gogoproto.nullable)   = false
+  ];
+
+  int64 count = 4 [(gogoproto.moretags) = "yaml:\"count\""];
+  
+  int64 redtype = 5 [(gogoproto.moretags) = "yaml:\"redtype\""];
+}
+
+
+message MsgAgreeJoinCluster {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string sign = 3 [(gogoproto.moretags) = "yaml:\"sign\""];
+  string index_num = 4 [(gogoproto.moretags) = "yaml:\"index_num\""];
+  string chat_address = 5 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+  int64 member_online_amount = 6 [(gogoproto.moretags) = "yaml:\"member_online_amount\""];
+  string gateway_address = 7 [(gogoproto.moretags) = "yaml:\"gateway_address\""];
+  
+  string gateway_sign = 8 [(gogoproto.moretags) = "yaml:\"gateway_sign\""];
+}
+
+message MsgReceiveBurnRewardFee {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string amount = 3 [
+    (gogoproto.moretags)   = "yaml:\"amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+
+message MsgClusterAd {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  repeated string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string ad_text =3 [(gogoproto.moretags) = "yaml:\"ad_text\""];
+}
+
+message MsgUpdateAdmin {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  repeated string cluster_admin_list = 3 [(gogoproto.moretags) = "yaml:\"cluster_admin_list\""];
+}
+
+
+message MsgClusterChangeName {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string cluster_name = 3 [(gogoproto.moretags) = "yaml:\"cluster_name\""];
+}
+
+message MsgClusterMemberExit {
+  option (cosmos.msg.v1.signer) = "from_address";
+
+  option (gogoproto.equal)           = false;
+  option (gogoproto.goproto_getters) = false;
+
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  int64 member_online_amount = 3 [(gogoproto.moretags) = "yaml:\"member_online_amount\""];
+  string gateway_address = 4 [(gogoproto.moretags) = "yaml:\"gateway_address\""];
+  string gateway_sign = 5 [(gogoproto.moretags) = "yaml:\"gateway_sign\""];
+}
+
+
+message MsgThawFrozenPower {
+  option (cosmos.msg.v1.signer) = "from_address";
+
+  option (gogoproto.equal)           = false;
+  option (gogoproto.goproto_getters) = false;
+
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string thaw_amount = 3 [
+    (gogoproto.moretags)   = "yaml:\"thaw_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  
+  string gateway_address = 4 [(gogoproto.moretags) = "yaml:\"node_address\""];
+  
+  string chat_address = 5 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+}
+
+
+message MsgDeleteMembers {
+  option (cosmos.msg.v1.signer) = "from_address";
+
+  option (gogoproto.equal)           = false;
+  option (gogoproto.goproto_getters) = false;
+
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2[(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  repeated string members = 3 [(gogoproto.moretags) = "yaml:\"members\""];
+  int64 member_online_amount = 4 [(gogoproto.moretags) = "yaml:\"member_online_amount\""];
+  string gateway_address = 5 [(gogoproto.moretags) = "yaml:\"gateway_address\""];
+  string gateway_sign = 6 [(gogoproto.moretags) = "yaml:\"gateway_sign\""];
+}
+
+
+message MsgWithdrawOwnerReward {
+  option (cosmos.msg.v1.signer) = "address";
+
+  option (gogoproto.equal)           = false;
+  option (gogoproto.goproto_getters) = false;
+
+  string cluster_id = 1 ;
+  string address = 2 ;
+}
+
+message MsgWithdrawSwapDpos {
+  option (cosmos.msg.v1.signer) = "member_address";
+
+  option (gogoproto.equal)           = false;
+  option (gogoproto.goproto_getters) = false;
+
+  string cluster_id = 1 ;
+  string member_address = 2 ;
+  string dao_num = 3;
+}
+
+message MsgWithdrawDeviceReward {
+  option (cosmos.msg.v1.signer) = "member_address";
+
+  option (gogoproto.equal)           = false;
+  option (gogoproto.goproto_getters) = false;
+
+  string cluster_id = 1 ;
+  string member_address = 2 ;
+}
+
+
+message MsgColonyRate {
+  string    address = 1 ;
+  string    gateway_address =2;
+  repeated  ColonyRate      online_rate = 3 [(gogoproto.nullable) = false];
+}
+
+message ColonyRate {
+  
+  string address = 1;
+  
+  string rate = 2 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
+}
+
+
+message MsgCreateCluster {
+  option (cosmos.msg.v1.signer) = "from_address";
+
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string gate_address = 2 [(gogoproto.moretags) = "yaml:\"gate_address\""];
+  string cluster_id = 3 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string salary_ratio = 4 [
+    (gogoproto.moretags)   = "yaml:\"salary_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string burn_amount = 5 [  
+    (gogoproto.moretags)   = "yaml:\"burn_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+
+  
+  string chat_address = 6 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+  
+  string cluster_name = 7 [(gogoproto.moretags) = "yaml:\"cluster_name\""];
+  
+  string freeze_amount = 8 [  
+    (gogoproto.moretags)   = "yaml:\"freeze_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  
+  string metadata = 9 [(gogoproto.moretags) = "yaml:\"metadata\""];
+
+  string cluster_dao_ratio = 10 [
+    (gogoproto.moretags)   = "yaml:\"cluster_dao_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+
+message MsgClusterAddMembers {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  repeated Members members = 3 [(gogoproto.moretags) = "yaml:\"members\"" ,(gogoproto.nullable) = false];
+}
+
+message Members {
+  string member_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string index_num = 2 [(gogoproto.moretags) = "yaml:\"index_num\""];
+  string chat_address = 3 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+}
+
+
+message MsgBurnToPower {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+
+  string to_address = 2 [(gogoproto.moretags) = "yaml:\"to_address\""];
+  
+  string cluster_id = 3 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  
+  string burn_amount = 4 [
+    (gogoproto.moretags)   = "yaml:\"burn_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  string use_freeze_amount = 5 [
+    (gogoproto.moretags)   = "yaml:\"use_freeze_amount\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  
+  string gateway_address = 6 [(gogoproto.moretags) = "yaml:\"gateway_address\""];
+  
+  string chat_address = 7 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+}
+
+
+
+
+
+message MsgClusterChangeSalaryRatio {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string salary_ratio = 3 [
+    (gogoproto.moretags)   = "yaml:\"salary_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+message MsgClusterChangeDvmRatio {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string dvm_ratio = 3 [
+    (gogoproto.moretags)   = "yaml:\"dvm_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+message MsgClusterChangeDaoRatio {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string dao_ratio = 3 [
+    (gogoproto.moretags)   = "yaml:\"dao_ratio\"",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+}
+
+
+message MsgClusterChangeId {
+  string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string new_cluster_id = 3 [(gogoproto.moretags) = "yaml:\"new_cluster_id\""];
+}
+
+message MsgClusterPowerApprove {
+  string approve_address = 1 [(gogoproto.moretags) = "yaml:\"approve_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string approve_end_block = 3 [(gogoproto.moretags) = "yaml:\"approve_end_Block\""];
+  string from_address = 4 [(gogoproto.moretags) = "yaml:\"from_address\""];
+}
+
+message MsgPersonDvmApprove {
+  string approve_address = 1 [(gogoproto.moretags) = "yaml:\"approve_address\""];
+  string cluster_id = 2 [(gogoproto.moretags) = "yaml:\"cluster_id\""];
+  string approve_end_block = 3 [(gogoproto.moretags) = "yaml:\"approve_end_Block\""];
+  string from_address = 4 [(gogoproto.moretags) = "yaml:\"from_address\""];
+}
+
+message MsgEmptyResponse {}

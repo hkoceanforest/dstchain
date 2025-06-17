@@ -1,0 +1,74 @@
+syntax = "proto3";
+package freemasonry.chat.v1;
+
+import "google/api/annotations.proto";
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/chat/types";
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+
+message GenesisState {
+  
+  Params params = 1 [ (gogoproto.nullable) = false ];
+  repeated RegisterInfo register_infos = 2 [ (gogoproto.moretags) = "yaml:\"register_infos\"", (gogoproto.nullable)   = false];
+  repeated PhonePrefix phone_prefixes = 3 [ (gogoproto.moretags) = "yaml:\"phone_prefixes\"" , (gogoproto.nullable)   = false];
+  repeated AddressBook address_books = 4 [ (gogoproto.moretags) = "yaml:\"address_books\"" , (gogoproto.nullable)   = false];
+}
+
+
+message AddressBook {
+  
+  string ChatAddress = 1 [(gogoproto.moretags) = "yaml:\"chat_address\""];
+  
+  string FromAddress = 2 [(gogoproto.moretags) = "yaml:\"from_address\""];
+}
+
+
+message PhonePrefix {
+  
+  string Mobile = 1 [(gogoproto.moretags) = "yaml:\"mobile\""];
+  
+  string Address = 2 [(gogoproto.moretags) = "yaml:\"address\""];
+}
+
+
+message RegisterInfo {
+  
+  string FromAddress = 2 [(gogoproto.moretags) = "yaml:\"from_address\""];
+  
+  string RegisterNodeAddress = 3 [(gogoproto.moretags) = "yaml:\"register_node_address\""];
+  
+  string NodeAddress = 4 [(gogoproto.moretags) = "yaml:\"node_address\""];
+  
+  string AddressBook = 5 [(gogoproto.moretags) = "yaml:\"address_book\""];
+  
+  string ChatBlacklist = 6 [(gogoproto.moretags) = "yaml:\"chat_blacklist\""];
+  
+  string ChatWhitelist = 7 [(gogoproto.moretags) = "yaml:\"chat_whitelist\""];
+  
+  repeated string Mobile = 8 [(gogoproto.moretags) = "yaml:\"mobile\""];
+  
+  int64 UpdateTime = 9 [(gogoproto.moretags) = "yaml:\"update_time\""];
+  
+  string ChatBlackEncList = 10 [(gogoproto.moretags) = "yaml:\"chat_black_enc_list\""];
+  
+  string ChatWhiteEncList = 11 [(gogoproto.moretags) = "yaml:\"chat_white_enc_list\""];
+}
+
+message Params {
+
+  
+  uint64 max_phone_number = 1 [
+    (gogoproto.moretags) = "yaml:\"max_phone_number\""
+  ];
+
+  
+  cosmos.base.v1beta1.Coin destroy_phone_number_coin = 2 [
+    (gogoproto.moretags) = "yaml:\"destroy_phone_number_coin\"",
+    (gogoproto.nullable) = false
+  ];
+
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+package freemasonry.dao.v1;
+
+option go_package = "freemasonry.cc/blockchain/x/dao/types";
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+import "cosmos_proto/cosmos.proto";
+
+message ClusterHistoricalRewards {
+  repeated cosmos.base.v1beta1.DecCoin cumulative_reward_ratio = 1
+  [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins", (gogoproto.nullable) = false];
+  uint32 reference_count = 2;
+  repeated cosmos.base.v1beta1.DecCoin his_reward = 3
+  [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins", (gogoproto.nullable) = false];
+  int64 receive_count = 4;
+}
+
+
+message ClusterCurrentRewards {
+  repeated cosmos.base.v1beta1.DecCoin rewards = 1
+  [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins", (gogoproto.nullable) = false];
+  uint64 period = 2;
+}
+
+
+message ClusterOutstandingRewards {
+  repeated cosmos.base.v1beta1.DecCoin rewards = 1
+  [(gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins", (gogoproto.nullable) = false];
+}
+
+
+message BurnStartingInfo {
+  uint64 previous_period = 1;
+  string stake           = 2 [
+    (cosmos_proto.scalar)  = "cosmos.Dec",
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable)   = false
+  ];
+  uint64 height = 3 [(gogoproto.jsontag) = "creation_height"];
+}
+
+message RemainderPool {
+  repeated cosmos.base.v1beta1.DecCoin community_pool = 1
+  [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.DecCoins"];
+}

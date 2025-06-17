@@ -1,0 +1,63 @@
+syntax = "proto3";
+package freemasonry.gateway.v1;
+
+import "google/api/annotations.proto";
+import "gogoproto/gogo.proto";
+import "gateway/v1/gateway.proto";
+
+option go_package = "freemasonry.cc/blockchain/x/gateway/types";
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+
+message GenesisState {
+  
+  Params params = 1 [ (gogoproto.nullable) = false ];
+  
+  repeated GatewayExport gateways = 2 [ (gogoproto.nullable) = false ];
+  
+  map<string, GatewayNumIndexExport> gateway_num_indexs = 3   [ (gogoproto.nullable) = false ];
+}
+
+message GatewayNumIndexExport {
+  
+  string gateway_address = 1;
+  
+  string number_index = 2;
+  
+  repeated string number_end = 3;
+  
+  int64 status = 4;
+  
+  int64 validity = 5;
+  
+  bool is_first = 6;
+}
+
+
+message GatewayExport {
+  
+  string gateway_address = 1;
+  
+  string gateway_name = 2;
+  
+  string gateway_url = 3;
+  
+  int64 gateway_quota = 4;
+  
+  int64 status = 5;
+  
+  repeated GatewayNumIndexExport  gateway_num = 6 [ (gogoproto.nullable) = false ];
+  
+  string package = 7;
+  
+  string peer_id = 8;
+  
+  string machine_address = 9;
+  
+  int64 machine_update_time = 10;
+  
+  string val_acc_address = 11;
+}
+
+
